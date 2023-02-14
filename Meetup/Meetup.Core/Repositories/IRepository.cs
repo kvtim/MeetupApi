@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meetup.Core.Repositories
 {
-    internal interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);

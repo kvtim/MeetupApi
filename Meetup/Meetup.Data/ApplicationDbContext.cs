@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Meetup.Data
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
