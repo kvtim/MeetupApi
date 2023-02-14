@@ -1,4 +1,5 @@
 ﻿using Meetup.Core.Models;
+using Meetup.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,14 @@ namespace Meetup.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
              : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ParticipantConfiguration());
+            modelBuilder.ApplyConfiguration(new SpeakerConfiguration());
+            modelBuilder.ApplyConfiguration(new SponsorConfiguration());
+            modelBuilder.ApplyConfiguration(new MeetingConfiguration());
         }
     }
 }
