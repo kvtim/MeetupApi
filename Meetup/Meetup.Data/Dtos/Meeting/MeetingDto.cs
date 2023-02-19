@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meetup.Infrastructure.Dtos.Meeting
 {
-    internal class MeetingDto
+    public class MeetingDto
     {
         public int Id { get; set; }
         public string? Title { get; set; }
