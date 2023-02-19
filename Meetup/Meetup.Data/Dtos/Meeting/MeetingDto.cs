@@ -16,7 +16,5 @@ namespace Meetup.Infrastructure.Dtos.Meeting
         public DateTime? MeetingTime { get; set; }
 
         public int SpeakerId { get; set; }
-        public List<Sponsor>? Sponsors { get; set; }
-        public List<Participant>? Participants { get; set; }
     }
 }
