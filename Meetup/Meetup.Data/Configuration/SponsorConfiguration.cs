@@ -1,4 +1,4 @@
-﻿using Meetup.Core.Models;
+﻿using Meetup.Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Data.Configuration
+namespace Meetup.Infascructure.Configuration
 {
     internal class SponsorConfiguration : IEntityTypeConfiguration<Sponsor>
     {

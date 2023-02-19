@@ -1,12 +1,12 @@
-﻿using Meetup.Core.Models;
-using Meetup.Core.Repositories;
+﻿using Meetup.Domain.Models;
+using Meetup.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Data.Repositories
+namespace Meetup.Infascructure.Repositories
 {
     public class MeetingRepository : Repository<Meeting>, IMeetingRepository
     {

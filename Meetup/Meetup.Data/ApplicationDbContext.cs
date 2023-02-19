@@ -1,5 +1,5 @@
-﻿using Meetup.Core.Models;
-using Meetup.Data.Configuration;
+﻿using Meetup.Domain.Models;
+using Meetup.Infascructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Data
+namespace Meetup.Infascructure
 {
     public class ApplicationDbContext : DbContext
     {

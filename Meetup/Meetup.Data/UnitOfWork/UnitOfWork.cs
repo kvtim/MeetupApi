@@ -1,13 +1,13 @@
-﻿using Meetup.Core.Repositories;
-using Meetup.Core.UnitOfWork;
-using Meetup.Data.Repositories;
+﻿using Meetup.Domain.Repositories;
+using Meetup.Domain.UnitOfWork;
+using Meetup.Infascructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Data.UnitOfWork
+namespace Meetup.Infascructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

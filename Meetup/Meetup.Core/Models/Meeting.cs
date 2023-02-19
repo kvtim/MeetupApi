@@ -1,4 +1,4 @@
-﻿namespace Meetup.Core.Models
+﻿namespace Meetup.Domain.Models
 {
     public class Meeting
     {

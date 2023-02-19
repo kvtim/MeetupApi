@@ -1,11 +1,11 @@
-﻿using Meetup.Core.Repositories;
+﻿using Meetup.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Core.UnitOfWork
+namespace Meetup.Domain.UnitOfWork
 {
     public interface IUnitOfWork
     {
