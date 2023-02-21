@@ -14,11 +14,12 @@ namespace Meetup.Api.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddAsync(Meeting entity)
+        public async Task<Meeting> AddAsync(Meeting entity)
         {
             _unitOfWork.MeetingRepository.AddAsync(entity);
-
             await _unitOfWork.CommitAsync();
+
+            return entity;
         }
 
         public async Task<IEnumerable<Meeting>> GetAllAsync()
@@ -37,10 +38,12 @@ namespace Meetup.Api.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateAsync(Meeting entity)
+        public async Task<Meeting> UpdateAsync(Meeting entity)
         {
             _unitOfWork.MeetingRepository.UpdateAsync(entity);
             await _unitOfWork.CommitAsync();
+
+            return entity;
         }
     }
 }
