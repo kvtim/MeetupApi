@@ -16,6 +16,12 @@ namespace Meetup.Infascructure.Configuration
             builder
                 .Property(s => s.Investment)
                 .IsRequired();
+
+            builder
+                .HasOne(m => m.SponsorMeeting)
+                .WithMany(p => p.Sponsors)
+                .HasForeignKey(e => e.SponsorMeetingId)
+                .IsRequired();
         }
     }
 }

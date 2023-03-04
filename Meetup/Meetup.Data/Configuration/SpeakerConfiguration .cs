@@ -1,6 +1,6 @@
 ﻿using Meetup.Domain.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +17,12 @@ namespace Meetup.Infascructure.Configuration
                 .Property(s => s.Report)
                 .HasColumnType("text")
                 .IsRequired();
+            builder
+                .HasOne(m => m.SpeakerMeeting)
+                .WithOne(p => p.Speaker)
+                .HasForeignKey<Meeting>(e => e.SpeakerId)
+                .IsRequired();
+
         }
     }
 }

@@ -7,6 +7,9 @@ using Meetup.Infascructure.Repositories;
 using Meetup.Infascructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

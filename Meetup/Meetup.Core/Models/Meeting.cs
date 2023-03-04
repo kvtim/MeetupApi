@@ -8,10 +8,11 @@
         public string? Location { get; set; }
         public DateTime? MeetingTime { get; set; }
 
+        public List<Participant>? Participants { get; set; }
+
         public int SpeakerId { get; set; }
         public Speaker? Speaker { get; set; }
 
         public List<Sponsor>? Sponsors { get; set; }
-        public List<Participant>? Participants { get; set; }
     }
 }

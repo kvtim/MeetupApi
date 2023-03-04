@@ -18,8 +18,9 @@ namespace Meetup.Infascructure.Configuration
                 .HasMaxLength(128)
                 .IsRequired();
             builder
-                .HasOne(m => m.Meeting)
+                .HasOne(m => m.ParticipantMeeting)
                 .WithMany(p => p.Participants)
+                .HasForeignKey(e => e.ParticipantMeetingId)
                 .IsRequired();
         }
     }
