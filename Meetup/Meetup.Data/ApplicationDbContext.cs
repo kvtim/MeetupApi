@@ -11,23 +11,18 @@ namespace Meetup.Infascructure
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Sponsor> Sponsors { get; set; }
-        public DbSet<Speaker> Speakers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
              : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ParticipantConfiguration());
-            modelBuilder.ApplyConfiguration(new SpeakerConfiguration());
-            modelBuilder.ApplyConfiguration(new SponsorConfiguration());
             modelBuilder.ApplyConfiguration(new MeetingConfiguration());
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Meetup.Domain.Models;
+using Meetup.Infrastructure.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace Meetup.Infrastructure.Dtos.Meeting
         public string? Location { get; set; }
         public DateTime? MeetingTime { get; set; }
 
-        public int SpeakerId { get; set; }
+        public List<UserDto>? Users { get; set; }
     }
 }

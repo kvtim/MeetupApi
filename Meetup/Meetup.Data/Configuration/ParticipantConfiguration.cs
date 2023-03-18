@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Meetup.Infascructure.Configuration
 {
-    internal class ParticipantConfiguration : IEntityTypeConfiguration<Participant>
+    internal class ParticipantConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Participant> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
-                .Property(p => p.Name)
+                .Property(p => p.UserName)
                 .HasMaxLength(128)
                 .IsRequired();
+            builder.Property(p => p.Role)
+                .HasDefaultValue(Role.User);
             builder
-                .HasOne(m => m.ParticipantMeeting)
-                .WithMany(p => p.Participants)
-                .HasForeignKey(e => e.ParticipantMeetingId)
-                .IsRequired();
+                .HasMany(m => m.Meetings)
+                .WithMany(p => p.Users);
         }
     }
 }

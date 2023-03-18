@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Domain.Repositories
+namespace Meetup.Domain.Services
 {
-    public interface IParticipantRepository : IRepository<User>
+    public interface IJWTTokenService
     {
+        JWTToken Authenticate(string userName, string password);
     }
 }

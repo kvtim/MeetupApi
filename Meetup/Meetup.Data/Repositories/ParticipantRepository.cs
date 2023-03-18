@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Meetup.Infascructure.Repositories
 {
-    public class ParticipantRepository : Repository<Participant>, IParticipantRepository
+    public class ParticipantRepository : Repository<User>, IParticipantRepository
     {
         public ParticipantRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
