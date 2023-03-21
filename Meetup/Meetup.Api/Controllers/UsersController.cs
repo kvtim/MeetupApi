@@ -11,6 +11,7 @@ namespace Meetup.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -31,7 +32,6 @@ namespace Meetup.Api.Controllers
         }
 
         [HttpGet("me")]
-        [Authorize]
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _userService.GetByUserNameAsync(User.Identity.Name);
@@ -39,7 +39,6 @@ namespace Meetup.Api.Controllers
         }
 
         [HttpGet("myMeetings")]
-        [Authorize]
         public async Task<IActionResult> GetMyMeetings()
         {
             var meetings = await _userService.GetUserMeetings(User.Identity.Name);
@@ -48,7 +47,6 @@ namespace Meetup.Api.Controllers
         }
 
         [HttpGet("becomeMember/{id}")]
-        [Authorize]
         public async Task<IActionResult> BecomeMember(int id)
         {
             try
@@ -68,7 +66,6 @@ namespace Meetup.Api.Controllers
         }
 
         [HttpGet("refuseToMeeting/{id}")]
-        [Authorize]
         public async Task<IActionResult> RefuseToMeeting(int id)
         {
             try

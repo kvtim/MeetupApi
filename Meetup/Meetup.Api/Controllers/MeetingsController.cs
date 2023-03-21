@@ -89,7 +89,7 @@ namespace Meetup.Api.Controllers
                 return BadRequest("You don't have this meetup");
 
             var meeting = await _meetingService.GetByIdAsync(id);
-            if (meeting == null) return NotFound();
+            if (meeting == null) return BadRequest("Meetup not found");
 
             await _meetingService.RemoveAsync(meeting);
             return Ok();
