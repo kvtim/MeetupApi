@@ -3,7 +3,7 @@ using Meetup.Core.Repositories;
 using Meetup.Core.Services;
 using Meetup.Core.UnitOfWork;
 
-namespace Meetup.Api.Services
+namespace Meetup.Services.Services
 {
     public class MeetingService : IMeetingService
     {

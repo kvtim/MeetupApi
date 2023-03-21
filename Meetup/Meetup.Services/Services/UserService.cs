@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.Security.Cryptography;
 
-namespace Meetup.Api.Services
+namespace Meetup.Services.Services
 {
     public class UserService : IUserService
     {

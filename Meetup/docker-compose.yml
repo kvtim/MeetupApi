@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  meetup.api:
+    image: ${DOCKER_REGISTRY-}meetupapi
+    build:
+      context: .
+      dockerfile: Meetup.Api/Dockerfile
+    depends_on:
+      - "postgres"
+  postgres:
+    image: postgres
+    container_name: postgres

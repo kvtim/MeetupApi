@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 
-namespace Meetup.Api.Services
+namespace Meetup.Services.Services
 {
     public class JWTTokenService : IJWTTokenService
     {

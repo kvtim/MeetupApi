@@ -38,8 +38,8 @@ namespace Meetup.Api.Controllers
             return Ok(token);
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
+        [HttpPost("registration")]
+        public async Task<IActionResult> Registration([FromBody] RegisterUserDto registerUserDto)
         {
             var newUser = await _userService.AddAsync(_mapper.Map<User>(registerUserDto));
 

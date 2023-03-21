@@ -1,4 +1,4 @@
-using Meetup.Api.Services;
+using Meetup.Services.Services;
 using Meetup.Core.Models;
 using Meetup.Core.Repositories;
 using Meetup.Core.Services;
@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.Extensions.Hosting;
+using System;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -98,8 +100,12 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJWTTokenService, JWTTokenService>();
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
