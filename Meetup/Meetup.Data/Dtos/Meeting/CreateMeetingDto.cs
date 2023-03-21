@@ -1,11 +1,11 @@
-﻿using Meetup.Infrastructure.Dtos.User;
+﻿using Meetup.Data.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infrastructure.Dtos.Meeting
+namespace Meetup.Data.Dtos.Meeting
 {
     public class CreateMeetingDto
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Meetup.Infrastructure.Migrations
+namespace Meetup.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddRoles : Migration

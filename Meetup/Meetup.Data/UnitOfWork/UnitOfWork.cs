@@ -1,19 +1,19 @@
-﻿using Meetup.Domain.Repositories;
-using Meetup.Domain.UnitOfWork;
-using Meetup.Infascructure.Repositories;
+﻿using Meetup.Core.Repositories;
+using Meetup.Core.UnitOfWork;
+using Meetup.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infascructure.UnitOfWork
+namespace Meetup.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
         private IMeetingRepository _meetingRepository;
-        private IParticipantRepository _participantRepository;
+        private IUserRepository _userRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -23,8 +23,8 @@ namespace Meetup.Infascructure.UnitOfWork
         public IMeetingRepository MeetingRepository => _meetingRepository = 
             _meetingRepository ?? new MeetingRepository(_context);
 
-        public IParticipantRepository ParticipantRepository => _participantRepository = 
-            _participantRepository ?? new ParticipantRepository(_context);
+        public IUserRepository UserRepository => _userRepository = 
+            _userRepository ?? new UserRepository(_context);
 
         public void Commit()
         {

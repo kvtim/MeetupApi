@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Meetup.Infrastructure.Migrations
+namespace Meetup.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

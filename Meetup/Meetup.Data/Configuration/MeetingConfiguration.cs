@@ -1,4 +1,4 @@
-﻿using Meetup.Domain.Models;
+﻿using Meetup.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infascructure.Configuration
+namespace Meetup.Data.Configuration
 {
     internal class MeetingConfiguration : IEntityTypeConfiguration<Meeting>
     {

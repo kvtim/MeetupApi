@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Domain.Models
+namespace Meetup.Core.Models
 {
     public enum Role
     {
-        Admin,
+        Admin = 1,
         Owner,
         Speaker,
         User

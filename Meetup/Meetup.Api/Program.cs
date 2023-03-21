@@ -1,11 +1,11 @@
 using Meetup.Api.Services;
-using Meetup.Domain.Models;
-using Meetup.Domain.Repositories;
-using Meetup.Domain.Services;
-using Meetup.Domain.UnitOfWork;
-using Meetup.Infascructure;
-using Meetup.Infascructure.Repositories;
-using Meetup.Infascructure.UnitOfWork;
+using Meetup.Core.Models;
+using Meetup.Core.Repositories;
+using Meetup.Core.Services;
+using Meetup.Core.UnitOfWork;
+using Meetup.Data;
+using Meetup.Data.Repositories;
+using Meetup.Data.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +48,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
-builder.Services.AddScoped<IParticipantRepository, ParticipantRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IMeetingService, MeetingService>();
 
@@ -63,7 +63,14 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+    options.SwaggerDoc(
+        "v1", 
+        new OpenApiInfo 
+        {
+            Title = "Meetup API", 
+            Version = "v1" 
+        });
+   
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,

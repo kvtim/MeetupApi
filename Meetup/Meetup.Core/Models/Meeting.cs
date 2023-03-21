@@ -1,4 +1,4 @@
-﻿namespace Meetup.Domain.Models
+﻿namespace Meetup.Core.Models
 {
     public class Meeting
     {
@@ -8,6 +8,6 @@
         public string? Location { get; set; }
         public DateTime? MeetingTime { get; set; }
 
-        public List<User>? Users { get; set; }
+        public List<User>? Users { get; set; } = new List<User>();
     }
 }

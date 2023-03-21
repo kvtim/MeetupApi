@@ -1,4 +1,4 @@
-﻿using Meetup.Domain.Repositories;
+﻿using Meetup.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infascructure.Repositories
+namespace Meetup.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {

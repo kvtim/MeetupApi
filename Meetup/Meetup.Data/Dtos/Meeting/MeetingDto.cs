@@ -1,12 +1,12 @@
-﻿using Meetup.Domain.Models;
-using Meetup.Infrastructure.Dtos.User;
+﻿using Meetup.Core.Models;
+using Meetup.Data.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infrastructure.Dtos.Meeting
+namespace Meetup.Data.Dtos.Meeting
 {
     public class MeetingDto
     {
@@ -16,6 +16,6 @@ namespace Meetup.Infrastructure.Dtos.Meeting
         public string? Location { get; set; }
         public DateTime? MeetingTime { get; set; }
 
-        public List<UserDto>? Users { get; set; }
+        public List<UserWithoutMeetingsDto>? Users { get; set; }
     }
 }

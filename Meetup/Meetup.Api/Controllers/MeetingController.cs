@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Meetup.Domain.Models;
-using Meetup.Domain.Services;
-using Meetup.Infrastructure.Dtos.Meeting;
+using Meetup.Core.Models;
+using Meetup.Core.Services;
+using Meetup.Data.Dtos.Meeting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +12,8 @@ using System.Security.Claims;
 namespace Meetup.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
-    public class MeetingController : BaseController
+    [ApiController]
+    public class MeetingController : ControllerBase
     {
         private readonly IMeetingService _meetingService;
         private readonly IUserService _userService;
@@ -29,7 +29,6 @@ namespace Meetup.Api.Controllers
 
         // GET: api/<MeetingController>
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var meetings = await _meetingService.GetAllAsync();
@@ -47,13 +46,13 @@ namespace Meetup.Api.Controllers
 
         // POST api/<MeetingController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Owner, Admin")]
         public async Task<IActionResult> Add([FromBody] CreateMeetingDto createMeetingDto)
         {
             var user = await _userService.GetByUserNameAsync(User.Identity.Name);
 
             var meeting = _mapper.Map<Meeting>(createMeetingDto);
-            meeting.Users = new List<User> { user };
+            meeting.Users.Add(user);
 
             var meetingResult = await _meetingService.AddAsync(meeting);
 
@@ -64,30 +63,38 @@ namespace Meetup.Api.Controllers
 
         // PUT api/<MeetingController>/5
         [HttpPut("{id}")]
-        [Authorize]
-        public async Task<IActionResult> Update(int id, [FromBody] MeetingDto meetingDto)
+        [Authorize(Roles = "Owner, Admin")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateMeetingDto updateMeetingDto)
         {
-            //if (id != meetingDto.Id) return BadRequest();
-
             if (!ModelState.IsValid) return BadRequest();
 
-            var meeting = _mapper.Map<Meeting>(meetingDto);
+            var meeting = _mapper.Map<Meeting>(updateMeetingDto);
             meeting.Id = id;
+
+            var user = await _userService.GetByUserNameAsync(User.Identity.Name);
+
+            if (user.Role == Role.Owner && !user.Meetings.Any(m => m.Id == id))
+                return BadRequest("You don't have this meetup");
+
             await _meetingService.UpdateAsync(meeting);
 
-            return Ok(meetingDto);
+            return Ok(updateMeetingDto);
         }
 
         // DELETE api/<MeetingController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Owner, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _meetingService.GetByIdAsync(id);
-            if (category == null) return NotFound();
+            var user = await _userService.GetByUserNameAsync(User.Identity.Name);
 
-            await _meetingService.RemoveAsync(category);
+            if (user.Role == Role.Owner && !user.Meetings.Any(m => m.Id == id))
+                return BadRequest("You don't have this meetup");
 
+            var meeting = await _meetingService.GetByIdAsync(id);
+            if (meeting == null) return NotFound();
+
+            await _meetingService.RemoveAsync(meeting);
             return Ok();
         }
     }

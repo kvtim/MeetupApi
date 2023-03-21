@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Domain.Repositories
+namespace Meetup.Core.Repositories
 {
     public interface IRepository<T> where T : class
     {

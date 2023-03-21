@@ -1,16 +1,16 @@
-﻿using Meetup.Domain.Repositories;
+﻿using Meetup.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Domain.UnitOfWork
+namespace Meetup.Core.UnitOfWork
 {
     public interface IUnitOfWork
     {
         IMeetingRepository MeetingRepository { get; }
-        IParticipantRepository ParticipantRepository { get; }
+        IUserRepository UserRepository { get; }
 
         void Commit();
         void Rollback();

@@ -1,6 +1,7 @@
-﻿using Meetup.Domain.Models;
-using Meetup.Domain.Services;
-using Meetup.Infascructure;
+﻿using Meetup.Core.Models;
+using Meetup.Core.Services;
+using Meetup.Data;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;

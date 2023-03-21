@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Meetup.Core\Meetup.Domain.csproj" />
-    <ProjectReference Include="..\Meetup.Data\Meetup.Infrastructure.csproj" />
+    <ProjectReference Include="..\Meetup.Core\Meetup.Core.csproj" />
+    <ProjectReference Include="..\Meetup.Data\Meetup.Data.csproj" />
+    <ProjectReference Include="..\Services\Meetup.Services.csproj" />
   </ItemGroup>
 
 </Project>

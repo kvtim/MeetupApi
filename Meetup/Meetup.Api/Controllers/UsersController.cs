@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Meetup.Domain.Models;
-using Meetup.Domain.Services;
-using Meetup.Infrastructure.Dtos.Meeting;
-using Meetup.Infrastructure.Dtos.User;
+using Meetup.Core.Models;
+using Meetup.Core.Services;
+using Meetup.Data.Dtos.Meeting;
+using Meetup.Data.Dtos.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,52 +14,61 @@ namespace Meetup.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IJWTTokenService _jwttokenService;
         private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService, IJWTTokenService jWTTokenServices,
-            IMapper mapper)
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-            _jwttokenService = jWTTokenServices;
             _mapper = mapper;
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAll();
             return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
-        [AllowAnonymous]
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginUserDto loginUserDto)
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
         {
-            var token = _jwttokenService
-                .Authenticate(loginUserDto.UserName, loginUserDto.Password);
-
-            if (token == null)
-            {
-                return BadRequest(new { message = "Username or password is incorrect" });
-            }
-
-            return Ok(token);
+            var user = await _userService.GetByUserNameAsync(User.Identity.Name);
+            return Ok(_mapper.Map<UserDto>(user));
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
+        [HttpGet("myMeetings")]
+        [Authorize]
+        public async Task<IActionResult> GetMyMeetings()
         {
-            var newUser = await _userService.AddAsync(_mapper.Map<User>(registerUserDto));
+            var meetings = await _userService.GetUserMeetings(User.Identity.Name);
 
-            if (newUser == null)
-            {
-                return BadRequest(new { message = "User already exists" });
-            }
+            return Ok(_mapper.Map<IEnumerable<MeetingDto>>(meetings));
+        }
 
-            var token = _jwttokenService.Authenticate(newUser.UserName, newUser.Password);
-            return Ok(token);
+        [HttpGet("becomeMember/{id}")]
+        [Authorize]
+        public async Task<IActionResult> BecomeMember(int id)
+        {
+            var meeting = await _userService.BecomeMember(id, User.Identity.Name);
+
+            if (meeting == null)
+                return BadRequest("Meetup doesn't exist");
+
+            return Ok(_mapper.Map<MeetingDto>(meeting));
+        }
+
+        [HttpGet("refuseToMeeting/{id}")]
+        [Authorize]
+        public async Task<IActionResult> RefuseToMeeting(int id)
+        {
+            var user = await _userService.RefuseToMeeting(id, User.Identity.Name);
+
+            if (user == null)
+                return BadRequest("You aren't member of this meetup");
+
+            return Ok(_mapper.Map<UserDto>(user));
         }
     }
 }

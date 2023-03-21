@@ -1,4 +1,4 @@
-﻿namespace Meetup.Domain.Models
+﻿namespace Meetup.Core.Models
 {
     public class User
     {
@@ -11,6 +11,6 @@
 
         public Role Role { get; set; }
 
-        public List<Meeting> Meetings { get; set; }
+        public List<Meeting> Meetings { get; set; } = new List<Meeting>();
     }
 }

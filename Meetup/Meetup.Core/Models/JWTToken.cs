@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Domain.Models
+namespace Meetup.Core.Models
 {
     public class JWTToken
     {

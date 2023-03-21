@@ -1,13 +1,13 @@
-﻿using Meetup.Domain.Models;
-using Meetup.Domain.Repositories;
-using Meetup.Domain.Services;
-using Meetup.Domain.UnitOfWork;
+﻿using Meetup.Core.Models;
+using Meetup.Core.Repositories;
+using Meetup.Core.Services;
+using Meetup.Core.UnitOfWork;
 
 namespace Meetup.Api.Services
 {
     public class MeetingService : IMeetingService
     {
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public MeetingService(IUnitOfWork unitOfWork)
         {
@@ -16,7 +16,7 @@ namespace Meetup.Api.Services
 
         public async Task<Meeting> AddAsync(Meeting entity)
         {
-            _unitOfWork.MeetingRepository.AddAsync(entity);
+            await _unitOfWork.MeetingRepository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
 
             return entity;
@@ -34,13 +34,13 @@ namespace Meetup.Api.Services
 
         public async Task RemoveAsync(Meeting entity)
         {
-            _unitOfWork.MeetingRepository.RemoveAsync(entity);
+            await _unitOfWork.MeetingRepository.RemoveAsync(entity);
             await _unitOfWork.CommitAsync();
         }
 
         public async Task<Meeting> UpdateAsync(Meeting entity)
         {
-            _unitOfWork.MeetingRepository.UpdateAsync(entity);
+            await _unitOfWork.MeetingRepository.UpdateAsync(entity);
             await _unitOfWork.CommitAsync();
 
             return entity;

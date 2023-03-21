@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Meetup.Infrastructure.Dtos.User
+namespace Meetup.Data.Dtos.User
 {
     public class LoginUserDto
     {
