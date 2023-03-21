@@ -27,7 +27,7 @@ namespace Meetup.Data.Configuration
                 .IsRequired();
             builder
                 .Property(m => m.MeetingTime)
-                .HasDefaultValue(DateTime.Now)
+                .HasDefaultValue(DateTime.Now.AddDays(30))
                 .IsRequired();
         }
     }

@@ -36,8 +36,6 @@ namespace Meetup.Api.Services
         {
             var meeting = await _unitOfWork.UserRepository.BecomeMemberAsync(meetingId, userName);
 
-            if (meeting == null) return null;
-
             await _unitOfWork.CommitAsync();
 
             return meeting;
@@ -47,8 +45,6 @@ namespace Meetup.Api.Services
         {
             var user = await _unitOfWork.UserRepository.RefuseToMeetingAsync(meetingId, userName);
 
-            if (user == null) return null;
-
             await _unitOfWork.CommitAsync();
 
             return user;
@@ -56,7 +52,7 @@ namespace Meetup.Api.Services
 
         public async Task<User> AddAsync(User user)
         {
-            await _unitOfWork.UserRepository.CheckedAddAsync(user);
+            user = await _unitOfWork.UserRepository.CheckedAddAsync(user);
             await _unitOfWork.CommitAsync();
 
             return user;

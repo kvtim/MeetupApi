@@ -27,7 +27,7 @@ namespace Meetup.Api.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAll();
-            return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
+            return Ok(_mapper.Map<IEnumerable<UserDetailsDto>>(users));
         }
 
         [HttpGet("me")]
@@ -35,7 +35,7 @@ namespace Meetup.Api.Controllers
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _userService.GetByUserNameAsync(User.Identity.Name);
-            return Ok(_mapper.Map<UserDto>(user));
+            return Ok(_mapper.Map<UserDetailsDto>(user));
         }
 
         [HttpGet("myMeetings")]
@@ -51,24 +51,36 @@ namespace Meetup.Api.Controllers
         [Authorize]
         public async Task<IActionResult> BecomeMember(int id)
         {
-            var meeting = await _userService.BecomeMember(id, User.Identity.Name);
+            try
+            {
+                var meeting = await _userService.BecomeMember(id, User.Identity.Name);
 
-            if (meeting == null)
+                return Ok(_mapper.Map<MeetingDto>(meeting));
+            }
+            catch (InvalidOperationException)
+            {
                 return BadRequest("Meetup doesn't exist");
-
-            return Ok(_mapper.Map<MeetingDto>(meeting));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("refuseToMeeting/{id}")]
         [Authorize]
         public async Task<IActionResult> RefuseToMeeting(int id)
         {
-            var user = await _userService.RefuseToMeeting(id, User.Identity.Name);
+            try
+            {
+                var user = await _userService.RefuseToMeeting(id, User.Identity.Name);
 
-            if (user == null)
+                return Ok(_mapper.Map<UserDto>(user));
+            }
+            catch(InvalidOperationException)
+            {
                 return BadRequest("You aren't member of this meetup");
-
-            return Ok(_mapper.Map<UserDto>(user));
+            }
         }
     }
 }

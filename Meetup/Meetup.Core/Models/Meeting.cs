@@ -8,6 +8,6 @@
         public string? Location { get; set; }
         public DateTime? MeetingTime { get; set; }
 
-        public List<User>? Users { get; set; } = new List<User>();
+        public List<User> Users { get; set; } = new List<User>();
     }
 }

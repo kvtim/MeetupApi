@@ -5,9 +5,9 @@ using Meetup.Data.Dtos.User;
 
 namespace Meetup.Api.Mappings
 {
-    public class MeetingProfile : Profile
+    public class MapProfile : Profile
     {
-        public MeetingProfile()
+        public MapProfile()
         {
             CreateMap<Meeting, CreateMeetingDto>().ReverseMap();
             CreateMap<Meeting, UpdateMeetingDto>().ReverseMap();
@@ -15,6 +15,7 @@ namespace Meetup.Api.Mappings
             CreateMap<Meeting, MeetingWithoutUsersDto>().ReverseMap();
 
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserDetailsDto>().ReverseMap();
             CreateMap<User, LoginUserDto>().ReverseMap();
             CreateMap<User, RegisterUserDto>().ReverseMap();
             CreateMap<User, UserWithoutMeetingsDto>().ReverseMap();

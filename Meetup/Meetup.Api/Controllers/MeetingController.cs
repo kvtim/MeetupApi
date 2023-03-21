@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Meetup.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MeetingController : ControllerBase
     {
         private readonly IMeetingService _meetingService;
@@ -27,16 +27,16 @@ namespace Meetup.Api.Controllers
             _userService = userService;
         }
 
-        // GET: api/<MeetingController>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var meetings = await _meetingService.GetAllAsync();
             return Ok(_mapper.Map<IEnumerable<MeetingDto>>(meetings));
         }
 
-        // GET api/<MeetingController>/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var meeting = await _meetingService.GetByIdAsync(id);
@@ -44,7 +44,6 @@ namespace Meetup.Api.Controllers
             return meeting == null ? NotFound() : Ok(_mapper.Map<MeetingDto>(meeting));
         }
 
-        // POST api/<MeetingController>
         [HttpPost]
         [Authorize(Roles = "Owner, Admin")]
         public async Task<IActionResult> Add([FromBody] CreateMeetingDto createMeetingDto)
@@ -61,7 +60,6 @@ namespace Meetup.Api.Controllers
             return Ok(_mapper.Map<MeetingDto>(meetingResult));
         }
 
-        // PUT api/<MeetingController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Owner, Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateMeetingDto updateMeetingDto)
@@ -81,7 +79,6 @@ namespace Meetup.Api.Controllers
             return Ok(updateMeetingDto);
         }
 
-        // DELETE api/<MeetingController>/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Owner, Admin")]
         public async Task<IActionResult> Delete(int id)

@@ -28,7 +28,7 @@ namespace Meetup.Data.Repositories
         public async Task<User> GetByUserNameAsync(string userName)
         {
             return await _dbSet.Include(c => c.Meetings)
-                .FirstAsync(u => u.UserName == userName);
+                .SingleAsync(u => u.UserName == userName);
         }
 
         public async Task<IEnumerable<Meeting>> GetUserMeetingsAsync(string userName)
@@ -42,11 +42,7 @@ namespace Meetup.Data.Repositories
 
         public async Task<User> CheckedAddAsync(User user)
         {
-            if (_dbSet.Any(e => e.UserName == user.UserName
-            && e.Password == user.Password))
-            {
-                return null;
-            }
+            if (_dbSet.Any(e => e.UserName == user.UserName)) return null;
 
             await _dbSet.AddAsync(user);
             return user;
@@ -55,12 +51,10 @@ namespace Meetup.Data.Repositories
         public async Task<Meeting> BecomeMemberAsync(int meetingId, string userName)
         {
             var meeting = await _dbContext.Meetings.Include(u => u.Users)
-                .FirstOrDefaultAsync(m => m.Id == meetingId);
+                .FirstAsync(m => m.Id == meetingId);
 
-            if (meeting == null) return null;
-
-            if (meeting.Users.Exists(u => u.UserName == userName))
-                return null; // need update
+            if (meeting.Users.Any(u => u.UserName == userName))
+                throw new ArgumentException("You already have this meetup");
 
             _dbSet.First(u => u.UserName == userName)
                  .Meetings.Add(meeting);
@@ -71,9 +65,7 @@ namespace Meetup.Data.Repositories
         public async Task<User> RefuseToMeetingAsync(int meetingId, string userName)
         {
             var user = await GetByUserNameAsync(userName);
-            var meeting = user.Meetings.FirstOrDefault(m => m.Id == meetingId);
-
-            if (meeting == null) return null;
+            var meeting = user.Meetings.First(m => m.Id == meetingId);
 
             user.Meetings.Remove(meeting);
 
