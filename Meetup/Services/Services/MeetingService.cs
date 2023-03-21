@@ -24,12 +24,12 @@ namespace Meetup.Api.Services
 
         public async Task<IEnumerable<Meeting>> GetAllAsync()
         {
-            return await _unitOfWork.MeetingRepository.GetAllAsync();
+            return await _unitOfWork.MeetingRepository.GetAllWithUsersAsync();
         }
 
         public async Task<Meeting> GetByIdAsync(int id)
         {
-            return await _unitOfWork.MeetingRepository.GetByIdAsync(id);
+            return await _unitOfWork.MeetingRepository.GetByIdWithUsersAsync(id);
         }
 
         public async Task RemoveAsync(Meeting entity)

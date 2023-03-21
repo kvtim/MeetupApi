@@ -15,12 +15,12 @@ namespace Meetup.Data.Repositories
         {
         }
 
-        public async Task<Meeting> GetByIdAsync(int id)
+        public async Task<Meeting> GetByIdWithUsersAsync(int id)
         {
             return await _dbSet.Include(c => c.Users).FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<IEnumerable<Meeting>> GetAllAsync()
+        public async Task<IEnumerable<Meeting>> GetAllWithUsersAsync()
         {
             return await _dbSet.Include(c => c.Users).ToListAsync();
         }

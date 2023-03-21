@@ -13,13 +13,13 @@ namespace Meetup.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class MeetingController : ControllerBase
+    public class MeetingsController : ControllerBase
     {
         private readonly IMeetingService _meetingService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public MeetingController(IMeetingService meetingService, IMapper mapper,
+        public MeetingsController(IMeetingService meetingService, IMapper mapper,
             IUserService userService)
         {
             _meetingService = meetingService;

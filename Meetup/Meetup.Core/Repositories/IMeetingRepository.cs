@@ -9,5 +9,7 @@ namespace Meetup.Core.Repositories
 {
     public interface IMeetingRepository : IRepository<Meeting>
     {
+        Task<Meeting> GetByIdWithUsersAsync(int id);
+        Task<IEnumerable<Meeting>> GetAllWithUsersAsync();
     }
 }
