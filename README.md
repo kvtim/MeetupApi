@@ -49,14 +49,14 @@ Layers:
 
 - ### /Authentication 
     Authentication with JWT token
-    ![authentication.png](Resources/authentication.png)
+    ![authentication.png](Resources/Authentication.png)
 
 
 - ### /Meetings
     Meeting management (only the admin or owner of meetup can change and delete)
-    ![authentication.png](Resources/meetings.png)
+    ![authentication.png](Resources/Meetings.png)
 
 - ### /Users
     User management (users can view information about themselves and become participants in events.
     Admin can view information about all users)
-    ![authentication.png](Resources/users.png)
+    ![authentication.png](Resources/Users.png)
