@@ -10,13 +10,13 @@ namespace Meetup.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IJWTTokenService _jwttokenService;
         private readonly IMapper _mapper;
 
-        public AuthController(IUserService userService, IJWTTokenService jWTTokenServices,
+        public AuthenticationController(IUserService userService, IJWTTokenService jWTTokenServices,
             IMapper mapper)
         {
             _userService = userService;
